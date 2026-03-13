@@ -880,22 +880,22 @@ Isso não pode ser desfeito.</translation>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/trinito_window.cpp" line="506"/>
         <source>Add Development Behavior Pack (file)...</source>
-        <translation>Adicionar Pacote de Comportamento de Desenvolvimento (arquivo)...</translation>
+        <translation>Adicionar Pacote de Comportamento</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/trinito_window.cpp" line="509"/>
         <source>Add Development Behavior Pack</source>
-        <translation>Adicionar Pacote de Comportamento de Desenvolvimento</translation>
+        <translation>Adicionar Pacote de Comportamento</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/trinito_window.cpp" line="520"/>
         <source>Add Development Resource Pack (file)...</source>
-        <translation>Adicionar Pacote de Recursos de Desenvolvimento (arquivo)...</translation>
+        <translation>Adicionar Pacote de Recursos</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/trinito_window.cpp" line="523"/>
         <source>Add Development Resource Pack</source>
-        <translation>Adicionar Pacote de Recursos de Desenvolvimento</translation>
+        <translation>Adicionar Pacote de Recursos</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/trinito_window.cpp" line="537"/>

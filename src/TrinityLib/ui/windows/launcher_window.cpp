@@ -591,6 +591,8 @@ void LauncherWindow::loadInstalledVersions() {
     } else {
         updateContextPanel("");
     }
+
+    emit versionsChanged();
 }
 
 void LauncherWindow::onVersionSelected(QListWidgetItem *item) {
