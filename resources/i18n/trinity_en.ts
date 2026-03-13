@@ -289,8 +289,8 @@ No: Only exports mods, maps, etc.</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/launcher_window.cpp" line="256"/>
-        <source>Extract APK</source>
-        <translation>Extract APK</translation>
+        <source>Extract</source>
+        <translation>Extract</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/launcher_window.cpp" line="266"/>

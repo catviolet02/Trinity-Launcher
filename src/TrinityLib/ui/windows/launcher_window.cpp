@@ -252,8 +252,8 @@ void LauncherWindow::setupUi() {
     dockLayout->setContentsMargins(20, 10, 20, 10);
     dockLayout->setSpacing(16);
 
-    // Left: Extract APK button
-    extractButton = new QPushButton(tr("Extract APK"));
+    // Left: Extract Version button
+    extractButton = new QPushButton(tr("Extract"));
     extractButton->setObjectName("ActionButton");
     extractButton->setFixedWidth(140);
     extractButton->setMinimumHeight(44);
@@ -659,7 +659,7 @@ void LauncherWindow::showExtractDialog() {
 
     // Crear diálogo de progreso
     QDialog progressDlg(this);
-    progressDlg.setWindowTitle(tr("Extracting APK..."));
+    progressDlg.setWindowTitle(tr("Extracting Version..."));
     progressDlg.setFixedSize(300, 100);
 
     auto *layout = new QVBoxLayout(&progressDlg);

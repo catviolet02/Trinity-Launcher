@@ -356,8 +356,8 @@ No: Sólo exporta mods, mundos, texturas.</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/launcher_window.cpp" line="256"/>
-        <source>Extract APK</source>
-        <translation>Extraer APK</translation>
+        <source>Extract</source>
+        <translation>Extraer</translation>
     </message>
     <message>
         <location filename="../../src/TrinityLib/ui/windows/launcher_window.cpp" line="266"/>
