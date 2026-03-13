@@ -9,7 +9,7 @@
 #include <QDir>
 
 ExtractDialog::ExtractDialog(QWidget *parent) : QDialog(parent) {
-    setWindowTitle(tr("New version from APK/TMC"));
+    setWindowTitle(tr("APK/TMC"));
     resize(400, 150);
 
     auto *layout = new QFormLayout(this);
