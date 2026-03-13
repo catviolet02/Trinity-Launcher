@@ -26,6 +26,11 @@
 
           nativeBuildInputs = with pkgs; [ pkg-config cmake ninja git curl qt6.wrapQtAppsHook ];
           buildInputs = projectDeps;
+          
+          installPhase = ''
+            mkdir -p $out/bin
+            cp app/trinity $out/bin/
+          '';
         };
 
         devShells.default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
