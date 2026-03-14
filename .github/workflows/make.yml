@@ -3,6 +3,7 @@ name: Compilar binarios para appimage
 on:
   push:
     branches: [ appimage-rebase, master ]
+  workflow_dispatch:
   pull_request:
     branches: [ appimage-rebase, master ]
 
