@@ -363,7 +363,7 @@ void LauncherWindow::setupUi() {
     statusLabel->setAlignment(Qt::AlignCenter);
     statusLabel->setStyleSheet(
         "QLabel#Status {"
-        "  font-size: 11px;"
+        "  font-size: 16px;"
         "  color: rgba(148, 163, 184, 0.8);"
         "  background: transparent;"
         "  padding: 4px 0px 6px 0px;"
@@ -454,7 +454,7 @@ void LauncherWindow::setupUi() {
     QHBoxLayout *toggleRow = new QHBoxLayout();
     toggleRow->setSpacing(12);
     QLabel *rpcLabel = new QLabel(tr("Discord Rich Presence"));
-    rpcLabel->setStyleSheet("font-size: 14px; background: transparent;"); // keep font-size override
+    rpcLabel->setStyleSheet("font-size: 16px; background: transparent;"); // keep font-size override
     QCheckBox *rpcToggle = new QCheckBox();
     rpcToggle->setChecked(DiscordManager::instance().isEnabled());
     rpcToggle->setObjectName("ThemeCheckBox");
@@ -499,7 +499,7 @@ void LauncherWindow::setupUi() {
                                       "Focused on user freedom and free redistribution, it provides a powerful interface to "
                                       "manage multiple instances, worlds, textures, and mods seamlessly."));
     aboutDesc->setWordWrap(true);
-    aboutDesc->setStyleSheet("font-size: 14px; background: transparent;");
+    aboutDesc->setStyleSheet("font-size: 16px; background: transparent;");
     aboutDesc->setAlignment(Qt::AlignJustify);
     scrollLayout->addWidget(aboutDesc);
 
@@ -510,7 +510,7 @@ void LauncherWindow::setupUi() {
 
     QLabel *teamDesc = new QLabel(tr("Trinity is built by a dedicated group of developers, designers, and contributors:"));
     teamDesc->setWordWrap(true);
-    teamDesc->setStyleSheet("font-size: 14px; background: transparent;");
+    teamDesc->setStyleSheet("font-size: 16px; background: transparent;");
     scrollLayout->addWidget(teamDesc);
 
     // Team list
@@ -530,7 +530,7 @@ void LauncherWindow::setupUi() {
         QLabel *memberLabel = new QLabel(member);
         memberLabel->setTextFormat(Qt::RichText);
         memberLabel->setWordWrap(true);
-        memberLabel->setStyleSheet("font-size: 14px; margin-left: 10px; background: transparent;");
+        memberLabel->setStyleSheet("font-size: 16px; margin-left: 10px; background: transparent;");
         scrollLayout->addWidget(memberLabel);
     }
 
@@ -544,7 +544,7 @@ void LauncherWindow::setupUi() {
                                        "to run Minecraft, which has been fundamental to the development of this project."));
     thanksDesc->setTextFormat(Qt::RichText);
     thanksDesc->setWordWrap(true);
-    thanksDesc->setStyleSheet("font-size: 14px; background: transparent;");
+    thanksDesc->setStyleSheet("font-size: 16px; background: transparent;");
     thanksDesc->setAlignment(Qt::AlignJustify);
     scrollLayout->addWidget(thanksDesc);
 
@@ -1073,7 +1073,7 @@ void LauncherWindow::applyTheme(const QString &accent,
             "QLabel#LauncherTitle { font-size: 56px; font-weight: bold; color: %7; background: transparent; margin-bottom: 20px; font-family: 'Terminus (TTF)', 'Terminus', monospace; }"
             "QLabel#Title { font-size: 18px; font-weight: bold; color: %1; background: transparent; }"
             "QLabel#VersionName { font-size: 24px; font-weight: bold; background: transparent; }"
-            "QLabel#VersionType { font-size: 14px; color: %6; background: transparent; }"
+            "QLabel#VersionType { font-size: 16px; color: %6; background: transparent; }"
             "QLabel#Status { font-size: 12px; color: %6; padding: 5px; background: transparent; }"
             "QWidget#ContextPanel { background-color: %3; border-radius: 12px; }"
             "QWidget#Sidebar { background-color: %2; }"
@@ -1083,10 +1083,10 @@ void LauncherWindow::applyTheme(const QString &accent,
             "QPushButton#SidebarBtnActive { background: transparent; border: none; "
             "border-left: 3px solid %1; border-radius: 0px; padding: 14px; }"
             "QWidget#TitleBar { background-color: %2; }"
-            "QLabel#TitleBarLabel { color: %6; font-size: 13px; font-weight: bold; background: transparent; }"
-            "QPushButton#TitleBarBtn { background: transparent; border: none; border-radius: 0px; padding: 0px; color: %6; font-size: 14px; }"
+            "QLabel#TitleBarLabel { color: %6; font-size: 16px; font-weight: bold; background: transparent; }"
+            "QPushButton#TitleBarBtn { background: transparent; border: none; border-radius: 0px; padding: 0px; color: %6; font-size: 16px; }"
             "QPushButton#TitleBarBtn:hover { background-color: %5; color: %7; }"
-            "QPushButton#TitleBarCloseBtn { background: transparent; border: none; border-radius: 0px; padding: 0px; color: %6; font-size: 14px; }"
+            "QPushButton#TitleBarCloseBtn { background: transparent; border: none; border-radius: 0px; padding: 0px; color: %6; font-size: 16px; }"
             "QPushButton#TitleBarCloseBtn:hover { background-color: #e81123; color: %7; }"
             "QTabWidget::pane { border: 1px solid %4; background-color: %3; border-radius: 8px; top: -1px; }"
             "QTabBar::tab { background: %4; color: %6; padding: 10px 20px; "
@@ -1100,20 +1100,20 @@ void LauncherWindow::applyTheme(const QString &accent,
             "border-radius: 12px; border: 1px solid rgba(%11, %12, %13, 0.25); }"
             // Dock combo
             "QComboBox#DockCombo { background-color: %4; color: %7; border-radius: 8px; "
-            "border: 1px solid %1; padding: 6px 12px; font-size: 13px; }"
+            "border: 1px solid %1; padding: 6px 12px; font-size: 16px; }"
             "QComboBox#DockCombo::drop-down { border: 0px; }"
             "QComboBox#DockCombo QAbstractItemView { background-color: %3; "
             "selection-background-color: %1; color: %7; border-radius: 6px; }"
             // Generic ComboBox (settings, etc.)
             "QComboBox { background-color: %4; color: %7; border-radius: 6px; "
-            "padding: 6px 10px; font-size: 13px; }"
+            "padding: 6px 10px; font-size: 16px; }"
             "QComboBox::drop-down { border: 0px; }"
             "QComboBox QAbstractItemView { background-color: %3; "
             "selection-background-color: %1; color: %7; }"
             // Discord URL box
             "QPushButton#DiscordUrlBox { background-color: %4; color: %1; "
             "border: 1px dashed %5; border-radius: 6px; padding: 8px; "
-            "font-size: 14px; font-weight: bold; text-align: center; }"
+            "font-size: 16px; font-weight: bold; text-align: center; }"
             // Themed checkbox
             "QCheckBox#ThemeCheckBox::indicator { width: 22px; height: 22px; border-radius: 11px; "
             "background-color: %4; border: 2px solid %5; }"
@@ -1265,7 +1265,7 @@ QWidget *LauncherWindow::createSettingsPage() {
     {
         auto *langRow = new QHBoxLayout();
         auto *langLabel = new QLabel(tr("Interface language:"));
-        langLabel->setStyleSheet("font-size: 14px;");
+        langLabel->setStyleSheet("font-size: 16px;");
         langLabel->setMinimumWidth(180);
 
         settingsLanguageCombo = new QComboBox();
@@ -1343,7 +1343,7 @@ QWidget *LauncherWindow::createSettingsPage() {
                             const QString &settingKey) {
         auto *row = new QHBoxLayout();
         auto *lbl = new QLabel(labelText);
-        lbl->setStyleSheet("font-size: 14px;");
+        lbl->setStyleSheet("font-size: 16px;");
         lbl->setMinimumWidth(180);
 
         auto *preview = new QPushButton();
@@ -1571,7 +1571,7 @@ QWidget *LauncherWindow::createSettingsPage() {
         iconPreview->setAlignment(Qt::AlignCenter);
 
         auto *nameLbl = new QLabel(entry.name);
-        nameLbl->setStyleSheet("font-size: 14px;");
+        nameLbl->setStyleSheet("font-size: 16px;");
         nameLbl->setMinimumWidth(180);
 
         auto *changeBtn = new QPushButton(tr("Change..."));
