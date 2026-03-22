@@ -142,7 +142,7 @@ void LauncherWindow::setupUi() {
     titleLayout->addWidget(titleLabel);
     titleLayout->addStretch();
     
-    QPushButton *minBtn = new QPushButton("—", m_titleBar);
+    QPushButton *minBtn = new QPushButton("_", m_titleBar);
     minBtn->setObjectName("TitleBarBtn");
     minBtn->setFixedSize(46, 32);
     minBtn->setCursor(Qt::PointingHandCursor);
@@ -334,7 +334,7 @@ void LauncherWindow::setupUi() {
     playButton->setCursor(Qt::PointingHandCursor);
     playButton->setStyleSheet(
         "QPushButton#ActionButton {"
-        "  font-size: 15px;"
+        "  font-size: 16px;"
         "  font-weight: bold;"
         "  letter-spacing: 1px;"
         "}"
@@ -363,7 +363,7 @@ void LauncherWindow::setupUi() {
     statusLabel->setAlignment(Qt::AlignCenter);
     statusLabel->setStyleSheet(
         "QLabel#Status {"
-        "  font-size: 16px;"
+        "  font-size: 18px;"
         "  color: rgba(148, 163, 184, 0.8);"
         "  background: transparent;"
         "  padding: 4px 0px 6px 0px;"
@@ -1056,7 +1056,7 @@ void LauncherWindow::applyTheme(const QString &accent,
     QString ss =
         QString(
             "QWidget { background-color: %2; color: %7; "
-            "font-family: 'Terminus (TTF)', 'Terminus', monospace; }"
+            "font-family: 'Terminess Nerd Font', monospace; }"
             "QListWidget { background-color: %3; border: 1px solid %4; "
             "border-radius: 8px; padding: 5px; outline: 0; }"
             "QListWidget::item { padding: 10px; border-radius: 5px; "
@@ -1070,9 +1070,9 @@ void LauncherWindow::applyTheme(const QString &accent,
             "QPushButton:pressed { background-color: %2; }"
             "QPushButton#ActionButton { background-color: %1; color: %7; }"
             "QPushButton#ActionButton:hover { background-color: %1; opacity: 0.85; }"
-            "QLabel#LauncherTitle { font-size: 56px; font-weight: bold; color: %7; background: transparent; margin-bottom: 20px; font-family: 'Terminus (TTF)', 'Terminus', monospace; }"
-            "QLabel#Title { font-size: 18px; font-weight: bold; color: %1; background: transparent; }"
-            "QLabel#VersionName { font-size: 24px; font-weight: bold; background: transparent; }"
+            "QLabel#LauncherTitle { font-size: 36px; font-weight: bold; color: %7; background: transparent; margin-bottom: 20px; font-family: 'Terminess Nerd Font', monospace; }"
+            "QLabel#Title { font-size: 16px; font-weight: bold; color: %1; background: transparent; }"
+            "QLabel#VersionName { font-size: 16px; font-weight: bold; background: transparent; }"
             "QLabel#VersionType { font-size: 16px; color: %6; background: transparent; }"
             "QLabel#Status { font-size: 12px; color: %6; padding: 5px; background: transparent; }"
             "QWidget#ContextPanel { background-color: %3; border-radius: 12px; }"
@@ -1355,7 +1355,7 @@ QWidget *LauncherWindow::createSettingsPage() {
         preview->setToolTip(tr("Click to change color"));
 
         auto *hexLabel = new QLabel(*colorRef);
-        hexLabel->setStyleSheet("font-size: 12px; color: #64748b; font-family: monospace;");
+        hexLabel->setStyleSheet("font-size: 16px; color: #64748b; font-family: monospace;");
         hexLabel->setMinimumWidth(80);
 
         connect(preview, &QPushButton::clicked, this,
@@ -1445,7 +1445,7 @@ QWidget *LauncherWindow::createSettingsPage() {
 
         auto *wpInfoLayout = new QVBoxLayout();
         auto *wpPathLabel = new QLabel(savedBg.isEmpty() ? tr("Default background") : QFileInfo(savedBg).fileName());
-        wpPathLabel->setStyleSheet("font-size: 12px; color: #94a3b8;");
+        wpPathLabel->setStyleSheet("font-size: 16px; color: #94a3b8;");
         wpPathLabel->setWordWrap(true);
         wpInfoLayout->addWidget(wpPathLabel);
 
@@ -1535,7 +1535,7 @@ QWidget *LauncherWindow::createSettingsPage() {
 
     auto *iconNote = new QLabel(tr("You can customize the sidebar icons. The app logo is fixed and cannot be changed."));
     iconNote->setWordWrap(true);
-    iconNote->setStyleSheet("font-size: 12px; color: #64748b;");
+    iconNote->setStyleSheet("font-size: 16px; color: #64748b;");
     layout->addWidget(iconNote);
 
     // Datos de iconos cambiables

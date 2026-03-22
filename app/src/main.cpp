@@ -8,11 +8,11 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    int fontId = QFontDatabase::addApplicationFont(":/fonts/TerminusTTF.ttf");
+    int fontId = QFontDatabase::addApplicationFont(":/fonts/TerminessNerdFont-Bold.ttf");
     if (fontId != -1) {
-        qDebug() << "Loaded TerminusTTF font families:" << QFontDatabase::applicationFontFamilies(fontId);
+        qDebug() << "Loaded TerminessNerdFont family:" << QFontDatabase::applicationFontFamilies(fontId);
     } else {
-        qWarning() << "Failed to load TerminusTTF font!";
+        qWarning() << "Failed to load TerminessNerdFont font!";
     }
 
     // Now more simpler!
