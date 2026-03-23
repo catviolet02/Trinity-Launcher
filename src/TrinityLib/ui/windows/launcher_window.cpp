@@ -114,12 +114,12 @@ void LauncherWindow::setupUi() {
     {
         QSettings cfg;
         applyTheme(
-            cfg.value("theme/accent",    "#8b5cf6").toString(),
-            cfg.value("theme/bg",        "#020617").toString(),
-            cfg.value("theme/panel",     "#090f20").toString(),
-            cfg.value("theme/hover",     "#1e293b").toString(),
-            cfg.value("theme/btnHover",  "#334155").toString(),
-            cfg.value("theme/textMuted", "#94a3b8").toString(),
+            cfg.value("theme/accent",    "#e429ef").toString(),
+            cfg.value("theme/bg",        "#070308").toString(),
+            cfg.value("theme/panel",     "#150915").toString(),
+            cfg.value("theme/hover",     "#2e1d2f").toString(),
+            cfg.value("theme/btnHover",  "#49364a").toString(),
+            cfg.value("theme/textMuted", "#af9bb0").toString(),
             cfg.value("theme/text",      "#ffffff").toString()
         );
     }
@@ -289,15 +289,21 @@ void LauncherWindow::setupUi() {
     rootLayout->addStretch();
 
     // ── Launcher Title ─────────────────────────────────────────────────────
-    QLabel *launcherTitle = new QLabel(tr("Trinity Launcher"), launcherTab);
+    launcherTitle = new QLabel(tr("TRINITY LAUNCHER"), launcherTab);
     launcherTitle->setObjectName("LauncherTitle");
     launcherTitle->setAlignment(Qt::AlignCenter);
+    launcherTitle->setStyleSheet(
+        "QLabel#LauncherTitle { font-size: 36px; font-weight: bold; "
+        "color: #ffffff; background: transparent; "
+        "font-family: 'Pixellari', sans-serif; }"
+    );
 
+    // Glow effect using accent color (updated in applyTheme)
     QGraphicsDropShadowEffect *titleShadow = new QGraphicsDropShadowEffect(launcherTitle);
     titleShadow->setObjectName("TitleShadow");
-    titleShadow->setBlurRadius(5);
-    titleShadow->setColor(QColor(0, 0, 0, 255));
-    titleShadow->setOffset(3, 3);
+    titleShadow->setBlurRadius(15);
+    titleShadow->setOffset(0, 0);
+    titleShadow->setColor(QColor("#e429ef")); // Default accent, updated in applyTheme
     launcherTitle->setGraphicsEffect(titleShadow);
 
     rootLayout->addWidget(launcherTitle, 0, Qt::AlignCenter);
@@ -1056,7 +1062,7 @@ void LauncherWindow::applyTheme(const QString &accent,
     QString ss =
         QString(
             "QWidget { background-color: %2; color: %7; "
-            "font-family: 'Terminess Nerd Font', monospace; }"
+            "font-family: 'Roboto', sans-serif; }"
             "QListWidget { background-color: %3; border: 1px solid %4; "
             "border-radius: 8px; padding: 5px; outline: 0; }"
             "QListWidget::item { padding: 10px; border-radius: 5px; "
@@ -1070,7 +1076,9 @@ void LauncherWindow::applyTheme(const QString &accent,
             "QPushButton:pressed { background-color: %2; }"
             "QPushButton#ActionButton { background-color: %1; color: %7; }"
             "QPushButton#ActionButton:hover { background-color: %1; opacity: 0.85; }"
-            "QLabel#LauncherTitle { font-size: 36px; font-weight: bold; color: %7; background: transparent; margin-bottom: 20px; font-family: 'Terminess Nerd Font', monospace; }"
+            "QLabel#LauncherTitle { font-size: 36px; font-weight: bold; "
+            "color: #ffffff; background: transparent; "
+            "font-family: 'Pixellari', sans-serif; }"
             "QLabel#Title { font-size: 16px; font-weight: bold; color: %1; background: transparent; }"
             "QLabel#VersionName { font-size: 16px; font-weight: bold; background: transparent; }"
             "QLabel#VersionType { font-size: 16px; color: %6; background: transparent; }"
@@ -1130,7 +1138,7 @@ void LauncherWindow::applyTheme(const QString &accent,
         .arg(hover)     // %4
         .arg(btnHover)  // %5
         .arg(textMuted) // %6
-        .arg(text);      // %7
+        .arg(text);     // %7
 
     // Replace dock RGBA placeholders with actual panel color values
     {
@@ -1146,25 +1154,13 @@ void LauncherWindow::applyTheme(const QString &accent,
 
     qApp->setStyleSheet(ss);
 
-    // Improve title shadow for better text contrast on any wallpaper
-    auto *titleShadow = this->findChild<QGraphicsDropShadowEffect*>("TitleShadow");
-    if (titleShadow) {
-        // Use darker shadow for bright wallpapers, lighter shadow for dark wallpapers
-        QColor textColorObj(text);
-        bool isDarkText = textColorObj.lightnessF() < 0.5;
-
-        if (isDarkText) {
-            // Dark text: use light shadow/glow for contrast
-            QColor shadowColor(255, 255, 255, 180);  // White semi-transparent
-            titleShadow->setColor(shadowColor);
-            titleShadow->setBlurRadius(8);
-            titleShadow->setOffset(0, 1);
-        } else {
-            // Light text: use dark shadow for contrast
-            QColor shadowColor(0, 0, 0, 200);  // Dark semi-transparent
-            titleShadow->setColor(shadowColor);
-            titleShadow->setBlurRadius(6);
-            titleShadow->setOffset(0, 1);
+    // Update title glow effect with accent color
+    if (launcherTitle) {
+        auto *titleShadow = launcherTitle->findChild<QGraphicsDropShadowEffect*>("TitleShadow");
+        if (titleShadow) {
+            titleShadow->setColor(QColor(accent));
+            titleShadow->setBlurRadius(20);
+            titleShadow->setOffset(0, 0);
         }
     }
 
@@ -1247,13 +1243,13 @@ void LauncherWindow::generateThemeFromWallpaper(const QString &wallpaperPath) {
 }
 
 QWidget *LauncherWindow::createSettingsPage() {
-    // Defaults
-    const QString DEF_ACCENT    = "#8b5cf6";
-    const QString DEF_BG        = "#020617";
-    const QString DEF_PANEL     = "#090f20";
-    const QString DEF_HOVER     = "#1e293b";
-    const QString DEF_BTNHOVER  = "#334155";
-    const QString DEF_TEXTMUTED = "#94a3b8";
+    // Defaults - Vibrant pink/purple theme
+    const QString DEF_ACCENT    = "#e429ef";
+    const QString DEF_BG        = "#070308";
+    const QString DEF_PANEL     = "#150915";
+    const QString DEF_HOVER     = "#2e1d2f";
+    const QString DEF_BTNHOVER  = "#49364a";
+    const QString DEF_TEXTMUTED = "#af9bb0";
     const QString DEF_TEXT      = "#ffffff";
 
     QSettings cfg;
@@ -1456,7 +1452,7 @@ QWidget *LauncherWindow::createSettingsPage() {
                     if (!chosen.isValid()) return;
                     *colorRef = chosen.name();
                     preview->setStyleSheet(
-                        QString("background-color: %1; border-radius: 6px; border: 2px solid #334155;")
+                        QString("background-color: %1; border: 1px solid #334155;")
                             .arg(*colorRef));
                     hexLabel->setText(*colorRef);
                     applyTheme(*accentVal, *bgVal, *panelVal, *hoverVal, *btnHoverVal, *textMutedVal, *textVal);
@@ -1491,7 +1487,7 @@ QWidget *LauncherWindow::createSettingsPage() {
                 *hoverVal     = DEF_HOVER;
                 *btnHoverVal  = DEF_BTNHOVER;
                 *textMutedVal = DEF_TEXTMUTED;
-                applyTheme(DEF_ACCENT, DEF_BG, DEF_PANEL, DEF_HOVER, DEF_BTNHOVER, DEF_TEXTMUTED);
+                applyTheme(DEF_ACCENT, DEF_BG, DEF_PANEL, DEF_HOVER, DEF_BTNHOVER, DEF_TEXTMUTED, DEF_TEXT);
                 QMessageBox::information(this, tr("Settings"),
                     tr("Colors reset to default. Reopen Settings to see the updated previews."));
             });
