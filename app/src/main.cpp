@@ -8,11 +8,13 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    int fontId = QFontDatabase::addApplicationFont(":/fonts/TerminessNerdFont-Bold.ttf");
+    // Load custom font
+    int fontId = QFontDatabase::addApplicationFont(":/fonts/TerminessNerdFontMono-Regular.ttf");
     if (fontId != -1) {
-        qDebug() << "Loaded TerminessNerdFont family:" << QFontDatabase::applicationFontFamilies(fontId);
-    } else {
-        qWarning() << "Failed to load TerminessNerdFont font!";
+        QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
+        if (!fontFamilies.isEmpty()) {
+            app.setFont(QFont(fontFamilies.first(), 12));
+        }
     }
 
     // Now more simpler!

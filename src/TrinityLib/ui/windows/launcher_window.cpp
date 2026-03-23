@@ -1146,11 +1146,26 @@ void LauncherWindow::applyTheme(const QString &accent,
 
     qApp->setStyleSheet(ss);
 
+    // Improve title shadow for better text contrast on any wallpaper
     auto *titleShadow = this->findChild<QGraphicsDropShadowEffect*>("TitleShadow");
     if (titleShadow) {
-        QColor shadowColor(bg); // Use the theme's dark background color
-        shadowColor.setAlpha(220); // Make it slightly more opaque to stand out more
-        titleShadow->setColor(shadowColor);
+        // Use darker shadow for bright wallpapers, lighter shadow for dark wallpapers
+        QColor textColorObj(text);
+        bool isDarkText = textColorObj.lightnessF() < 0.5;
+        
+        if (isDarkText) {
+            // Dark text: use light shadow/glow for contrast
+            QColor shadowColor(255, 255, 255, 180);  // White semi-transparent
+            titleShadow->setColor(shadowColor);
+            titleShadow->setBlurRadius(8);
+            titleShadow->setOffset(0, 1);
+        } else {
+            // Light text: use dark shadow for contrast
+            QColor shadowColor(0, 0, 0, 200);  // Dark semi-transparent
+            titleShadow->setColor(shadowColor);
+            titleShadow->setBlurRadius(6);
+            titleShadow->setOffset(0, 1);
+        }
     }
 
     // Persistir
@@ -1170,6 +1185,13 @@ void LauncherWindow::generateThemeFromWallpaper(const QString &wallpaperPath) {
         qWarning() << "[Theme] Could not extract colors from wallpaper";
         return;
     }
+
+    // Calculate average brightness of the wallpaper to determine text color
+    double totalLightness = 0;
+    for (const auto &c : colors) {
+        totalLightness += c.color.lightnessF();
+    }
+    double avgLightness = totalLightness / colors.size();
 
     // Find the most vibrant color (highest saturation) for accent
     int accentIdx = 0;
@@ -1196,9 +1218,22 @@ void LauncherWindow::generateThemeFromWallpaper(const QString &wallpaperPath) {
     QColor hover    = QColor::fromHslF(hue, sat * 0.3, 0.15);
     QColor btnHover = QColor::fromHslF(hue, sat * 0.2, 0.25);
     QColor muted    = QColor::fromHslF(hue, sat * 0.15, 0.65);
-    QColor text     = (bg.lightnessF() > 0.5) ? QColor("#0f172a") : QColor("#ffffff");
+    
+    // Text color based on wallpaper average brightness
+    // If wallpaper is bright (avgLightness > 0.6), use dark text
+    // If wallpaper is dark (avgLightness < 0.4), use light text
+    // For mid-tone wallpapers, use the bg lightness as fallback
+    QColor text;
+    if (avgLightness > 0.6) {
+        text = QColor("#0f172a");  // Dark text for bright wallpapers
+    } else if (avgLightness < 0.4) {
+        text = QColor("#ffffff");  // Light text for dark wallpapers
+    } else {
+        text = (bg.lightnessF() > 0.5) ? QColor("#0f172a") : QColor("#ffffff");
+    }
 
     qDebug() << "[Theme] Generated from wallpaper:";
+    qDebug() << "  avgLightness:" << avgLightness;
     qDebug() << "  accent:"   << accent.name();
     qDebug() << "  bg:"       << bg.name();
     qDebug() << "  panel:"    << panel.name();
@@ -1270,19 +1305,74 @@ QWidget *LauncherWindow::createSettingsPage() {
 
         settingsLanguageCombo = new QComboBox();
         settingsLanguageCombo->setFixedWidth(180);
+        // Explicit styles for AppImage compatibility
+        settingsLanguageCombo->setStyleSheet(
+            "QComboBox {"
+            "    background-color: #1e293b;"
+            "    color: #ffffff;"
+            "    border: 1px solid #334155;"
+            "    border-radius: 4px;"
+            "    padding: 4px 8px;"
+            "    font-size: 14px;"
+            "}"
+            "QComboBox:hover {"
+            "    background-color: #334155;"
+            "    border-color: #475569;"
+            "}"
+            "QComboBox::drop-down {"
+            "    border: none;"
+            "    width: 20px;"
+            "}"
+            "QComboBox::down-arrow {"
+            "    image: none;"
+            "    border-left: 5px solid transparent;"
+            "    border-right: 5px solid transparent;"
+            "    border-top: 6px solid #94a3b8;"
+            "    margin-right: 8px;"
+            "}"
+            "QComboBox QAbstractItemView {"
+            "    background-color: #1e293b;"
+            "    color: #ffffff;"
+            "    border: 1px solid #334155;"
+            "    selection-background-color: #475569;"
+            "    selection-color: #ffffff;"
+            "    outline: none;"
+            "    padding: 4px;"
+            "}"
+            "QComboBox QAbstractItemView::item {"
+            "    min-height: 30px;"
+            "    padding: 4px 8px;"
+            "}"
+            "QComboBox QAbstractItemView::item:hover {"
+            "    background-color: #334155;"
+            "}"
+            "QComboBox QAbstractItemView::item:selected {"
+            "    background-color: #475569;"
+            "    color: #ffffff;"
+            "}"
+        );
 
-        settingsLanguageCombo->addItem("Espa\u00f1ol", "es");
+        // Available languages (explicit list for AppImage compatibility)
+        // Format: { language code, native name }
+        const QStringList availableLanguages = {
+            "es",     // Español (always available)
+            "pt_BR",  // Português (Brasil) (always available)
+            "en",     // English
+            "ca",     // Català
+            "uk"      // Українська
+        };
+
+        // Add default languages
+        settingsLanguageCombo->addItem("Español", "es");
         settingsLanguageCombo->addItem("Português (Brasil)", "pt_BR");
 
-        QDir translationsDir(":/i18n");
-        QStringList langFiles =
-            translationsDir.entryList(QStringList() << "trinity_*.qm", QDir::Files);
-
-        for (const QString &file : langFiles) {
-            if (file.length() <= 11) continue;
-            QString code = file.mid(8, file.length() - 11);
-            if (code == "es") continue;
-            if (code == "pt_BR") continue;
+        // Add other available languages
+        for (const QString &code : availableLanguages) {
+            if (code == "es" || code == "pt_BR")
+                continue;
+            // Check if translation file exists
+            if (!QFile::exists(":/i18n/trinity_" + code + ".qm"))
+                continue;
             QLocale loc(code);
             QString nativeName = loc.nativeLanguageName();
             if (!nativeName.isEmpty())
