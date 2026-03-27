@@ -18,6 +18,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             ca-certificates build-essential git curl cmake clang ninja-build \
+            qtbase5-dev qtwebengine5-dev \
             qt6-base-dev qt6-base-dev-tools qt6-declarative-dev qt6-webengine-dev qt6-svg-dev qt6-tools-dev \
             libcurl4-openssl-dev libssl-dev libasound2-dev libpulse-dev libjack-jackd2-dev \
             libpipewire-0.3-dev libsndio-dev libx11-dev libxi-dev libxext-dev libxfixes-dev \
@@ -36,6 +37,16 @@ jobs:
           
           # Limpieza de binarios problemáticos
           rm -f APPIMAGE-TRINITY/usr/bin/mcpelauncher-webview
+
+      - name: Compilar e integrar MSA
+        run: |
+          git clone --recursive https://github.com/minecraft-linux/msa-manifest.git msa
+          cd msa
+          mkdir build && cd build
+          cmake -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/APPIMAGE-TRINITY/usr -DENABLE_MSA_QT_UI=ON ..
+          make -j$(nproc)
+          make install
+          cd ../..
 
       - name: Integrar Librerías Físicas (Portabilidad Total)
         run: |
